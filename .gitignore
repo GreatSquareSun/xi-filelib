@@ -5,3 +5,4 @@ tests/php_errors.log
 docs/html/web/php_errors.log
 /vendor/
 /.idea/
+.tm_properties
