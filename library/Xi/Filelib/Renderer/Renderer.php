@@ -100,7 +100,7 @@ class Renderer implements Attacher
         // Renderer / authorization evil tag team
         try {
             $event = new FileEvent($file);
-            $this->eventDispatcher->dispatch(Events::RENDERER_BEFORE_RENDER, $event);
+            $this->eventDispatcher->dispatch($event, Events::RENDERER_BEFORE_RENDER);
         } catch (AccessDeniedException $e) {
             return $this->adaptResponse(
                 $response->setStatusCode(403),
@@ -223,7 +223,7 @@ class Renderer implements Attacher
         $adaptedResponse = $this->adapter->adaptResponse($response);
 
         $event = new RenderEvent($response, $adaptedResponse, $version, $file);
-        $this->eventDispatcher->dispatch(Events::RENDERER_RENDER, $event);
+        $this->eventDispatcher->dispatch($event, Events::RENDERER_RENDER);
 
         return $adaptedResponse;
     }

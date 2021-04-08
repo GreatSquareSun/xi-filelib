@@ -109,10 +109,8 @@ class FindByIdsRequest
             $this->foundObjects[] = $identifiable;
 
             if ($this->isOrigin && $this->eventDispatcher) {
-                $this->eventDispatcher->dispatch(
-                    Events::IDENTIFIABLE_INSTANTIATE,
-                    new IdentifiableEvent($identifiable)
-                );
+                $event = new IdentifiableEvent($identifiable);
+                $this->eventDispatcher->dispatch($event, Events::IDENTIFIABLE_INSTANTIATE);
             }
         }
         return $this;

@@ -100,12 +100,12 @@ class Publisher implements EventSubscriberInterface, Attacher
     public function publishVersion(File $file, Version $version)
     {
         $event = new PublisherEvent($file, array($version->toString()));
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_PUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_PUBLISH);
 
         if ($this->versionPublisher($file, $version)) {
             $this->fileRepository->update($file);
             $event = new PublisherEvent($file, array($version->toString()));
-            $this->eventDispatcher->dispatch(Events::FILE_AFTER_PUBLISH, $event);
+            $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_PUBLISH);
             return true;
         }
 
@@ -120,7 +120,7 @@ class Publisher implements EventSubscriberInterface, Attacher
         $versions = $this->getVersionsToPublish($file);
 
         $event = new PublisherEvent($file, $versions);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_PUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_PUBLISH);
 
         foreach ($versions as $version) {
             $this->versionPublisher($file, $version);
@@ -129,7 +129,7 @@ class Publisher implements EventSubscriberInterface, Attacher
         $this->fileRepository->update($file);
 
         $event = new PublisherEvent($file, $versions);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_PUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_PUBLISH);
     }
 
     /**
@@ -140,7 +140,7 @@ class Publisher implements EventSubscriberInterface, Attacher
         $versions = $this->getVersionsToUnpublish($file);
 
         $event = new PublisherEvent($file, $versions);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_UNPUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_UNPUBLISH);
 
         foreach ($versions as $version) {
             $this->versionUnpublisher($file, $version);
@@ -149,7 +149,7 @@ class Publisher implements EventSubscriberInterface, Attacher
         $this->fileRepository->update($file);
 
         $event = new PublisherEvent($file, $versions);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_UNPUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_UNPUBLISH);
 
         return true;
     }
@@ -162,13 +162,13 @@ class Publisher implements EventSubscriberInterface, Attacher
     public function unpublishVersion(File $file, Version $version)
     {
         $event = new PublisherEvent($file, array($version));
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_UNPUBLISH, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_UNPUBLISH);
 
         if ($this->versionUnpublisher($file, $version)) {
             $this->fileRepository->update($file);
 
             $event = new PublisherEvent($file, array($version));
-            $this->eventDispatcher->dispatch(Events::FILE_AFTER_UNPUBLISH, $event);
+            $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_UNPUBLISH);
 
             return true;
         }

@@ -77,7 +77,7 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
         if ($folder->getParentId()) {
             $parentFolder = $this->find($folder->getParentId());
             $event = new FolderEvent($parentFolder);
-            $this->eventDispatcher->dispatch(Events::FOLDER_BEFORE_WRITE_TO, $event);
+            $this->eventDispatcher->dispatch($event, Events::FOLDER_BEFORE_WRITE_TO);
         }
 
         $route = $this->buildRoute($folder);
@@ -85,12 +85,12 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
         $folder->setUuid(Uuid::uuid4()->toString());
 
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_BEFORE_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_BEFORE_CREATE);
 
         $this->backend->createFolder($folder);
 
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_AFTER_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_AFTER_CREATE);
 
         return $folder;
     }
@@ -103,7 +103,7 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
     public function delete(Folder $folder)
     {
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_BEFORE_DELETE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_BEFORE_DELETE);
 
         foreach ($this->findSubFolders($folder) as $childFolder) {
             $this->delete($childFolder);
@@ -116,10 +116,7 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
         $this->backend->deleteFolder($folder);
 
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(
-            Events::FOLDER_AFTER_DELETE,
-            $event
-        );
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_AFTER_DELETE);
 
         return true;
     }
@@ -145,7 +142,7 @@ class FolderRepository extends AbstractRepository implements FolderRepositoryInt
         }
 
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_AFTER_UPDATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_AFTER_UPDATE);
 
         return $folder;
     }

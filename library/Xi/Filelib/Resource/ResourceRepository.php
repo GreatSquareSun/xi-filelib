@@ -67,12 +67,12 @@ class ResourceRepository extends AbstractRepository implements ResourceRepositor
     public function update(Resource $resource)
     {
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_BEFORE_UPDATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_BEFORE_UPDATE);
 
         $this->backend->updateResource($resource);
 
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_AFTER_UPDATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_AFTER_UPDATE);
 
         return $resource;
     }
@@ -113,13 +113,13 @@ class ResourceRepository extends AbstractRepository implements ResourceRepositor
     public function delete(Resource $resource)
     {
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_BEFORE_DELETE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_BEFORE_DELETE);
 
         $this->backend->deleteResource($resource);
         $this->storage->delete($resource);
 
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_AFTER_DELETE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_AFTER_DELETE);
 
         return $resource;
     }
@@ -133,7 +133,7 @@ class ResourceRepository extends AbstractRepository implements ResourceRepositor
     public function create(Resource $resource, $path)
     {
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_BEFORE_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_BEFORE_CREATE);
         $resource->setUuid(Uuid::uuid4()->toString());
 
         $this->backend->createResource($resource);
@@ -147,7 +147,7 @@ class ResourceRepository extends AbstractRepository implements ResourceRepositor
         }
 
         $event = new ResourceEvent($resource);
-        $this->eventDispatcher->dispatch(Events::RESOURCE_AFTER_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::RESOURCE_AFTER_CREATE);
 
         return $resource;
     }

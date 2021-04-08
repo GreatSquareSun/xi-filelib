@@ -76,7 +76,7 @@ class Storage implements Attacher
         $retrieved = $this->getResolvedAdapter()->retrieve($resource);
 
         $event = new StorageEvent($retrieved);
-        $this->eventDispatcher->dispatch(Events::AFTER_RETRIEVE, $event);
+        $this->eventDispatcher->dispatch($event, Events::AFTER_RETRIEVE);
 
         $this->cache->set($resource, $retrieved);
         return $retrieved->getPath();
@@ -101,7 +101,7 @@ class Storage implements Attacher
     {
         try {
             $event = new StorageEvent($tempFile);
-            $this->eventDispatcher->dispatch(Events::BEFORE_STORE, $event);
+            $this->eventDispatcher->dispatch($event, Events::BEFORE_STORE);
             $this->cache->delete($resource);
             return $this->getResolvedAdapter()->store($resource, $tempFile);
         } catch (\Exception $e) {
@@ -136,7 +136,7 @@ class Storage implements Attacher
 
         $retrieved = $this->getResolvedAdapter()->retrieveVersion($versionable, $version);
         $event = new StorageEvent($retrieved);
-        $this->eventDispatcher->dispatch(Events::AFTER_RETRIEVE, $event);
+        $this->eventDispatcher->dispatch($event, Events::AFTER_RETRIEVE);
 
         $this->cache->setVersion($versionable, $version, $retrieved);
         return $retrieved->getPath();
@@ -163,7 +163,7 @@ class Storage implements Attacher
     {
         try {
             $event = new StorageEvent($tempFile);
-            $this->eventDispatcher->dispatch(Events::BEFORE_STORE, $event);
+            $this->eventDispatcher->dispatch($event, Events::BEFORE_STORE);
             $this->cache->deleteVersion($versionable, $version);
             return $this->getResolvedAdapter()->storeVersion($versionable, $version, $tempFile);
         } catch (\Exception $e) {

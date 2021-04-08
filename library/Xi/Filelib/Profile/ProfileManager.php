@@ -73,7 +73,7 @@ class ProfileManager
         $this->eventDispatcher->addSubscriber($profile);
 
         $event = new FileProfileEvent($profile);
-        $this->eventDispatcher->dispatch(Events::PROFILE_AFTER_ADD, $event);
+        $this->eventDispatcher->dispatch($event, Events::PROFILE_AFTER_ADD);
 
         return $this;
     }

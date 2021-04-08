@@ -81,12 +81,12 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
     public function update(File $file)
     {
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_UPDATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_UPDATE);
         $this->resourceRepository->update($file->getResource());
         $this->backend->updateFile($file);
 
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_UPDATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_UPDATE);
 
         return $file;
     }
@@ -173,11 +173,11 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
         }
 
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_BEFORE_WRITE_TO, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_BEFORE_WRITE_TO);
 
         $profileObj = $this->profiles->getProfile($profile);
         $event = new FileUploadEvent($upload, $folder, $profileObj);
-        $this->eventDispatcher->dispatch(Events::FILE_UPLOAD, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_UPLOAD);
 
         $upload = $event->getFileUpload();
 
@@ -197,12 +197,12 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
         $file->setResource($resource);
 
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_CREATE);
 
         $this->backend->createFile($file, $folder);
 
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_CREATE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_CREATE);
 
         return $file;
     }
@@ -210,7 +210,7 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
     public function afterUpload(File $file)
     {
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_AFTERUPLOAD, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_AFTERUPLOAD);
 
         $file->setStatus(File::STATUS_COMPLETED);
 
@@ -228,7 +228,7 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
     public function delete(File $file)
     {
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_DELETE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_DELETE);
 
         $this->backend->deleteFile($file);
 
@@ -239,7 +239,7 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
         }
 
         $event = new FileEvent($file);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_DELETE, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_DELETE);
 
         return true;
     }
@@ -255,7 +255,7 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
     public function copy(File $file, Folder $folder)
     {
         $event = new FolderEvent($folder);
-        $this->eventDispatcher->dispatch(Events::FOLDER_BEFORE_WRITE_TO, $event);
+        $this->eventDispatcher->dispatch($event, Events::FOLDER_BEFORE_WRITE_TO);
 
         $copier = new FileCopier(
             $this->resourceRepository,
@@ -266,12 +266,12 @@ class FileRepository extends AbstractRepository implements FileRepositoryInterfa
         $copy = $copier->copy($file, $folder);
 
         $event = new FileCopyEvent($file, $copy);
-        $this->eventDispatcher->dispatch(Events::FILE_BEFORE_COPY, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_BEFORE_COPY);
 
         $this->backend->createFile($copy, $folder);
 
         $event = new FileCopyEvent($file, $copy);
-        $this->eventDispatcher->dispatch(Events::FILE_AFTER_COPY, $event);
+        $this->eventDispatcher->dispatch($event, Events::FILE_AFTER_COPY);
 
         return $copy;
     }

@@ -114,7 +114,7 @@ abstract class VersionProvider extends BasePlugin
         $this->fileRepository->update($file);
 
         $event = new VersionProviderEvent($this, $file, array_keys($versions));
-        $this->eventDispatcher->dispatch(Events::VERSIONS_PROVIDED, $event);
+        $this->eventDispatcher->dispatch($event, Events::VERSIONS_PROVIDED);
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class VersionProvider extends BasePlugin
         }
 
         $event = new VersionProviderEvent($this, $versionable, $versions);
-        $this->eventDispatcher->dispatch(Events::VERSIONS_UNPROVIDED, $event);
+        $this->eventDispatcher->dispatch($event, Events::VERSIONS_UNPROVIDED);
     }
 
     public function areProvidedVersionsCreated(File $file)

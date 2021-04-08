@@ -252,6 +252,6 @@ class IdentityMap implements EventSubscriberInterface, FindByIdsRequestResolver
     protected function dispatchEvent(Identifiable $object, $eventName)
     {
         $event = new IdentifiableEvent($object);
-        $this->getEventDispatcher()->dispatch('xi_filelib.identitymap.' . $eventName, $event);
+        $this->getEventDispatcher()->dispatch($event, 'xi_filelib.identitymap.' . $eventName);
     }
 }

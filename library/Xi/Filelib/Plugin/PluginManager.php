@@ -87,7 +87,7 @@ class PluginManager
 
         $this->eventDispatcher->addSubscriber($plugin);
         $event = new PluginEvent($plugin, $this->filelib);
-        $this->eventDispatcher->dispatch(Events::PLUGIN_AFTER_ADD, $event);
+        $this->eventDispatcher->dispatch($event, Events::PLUGIN_AFTER_ADD);
 
         return $this;
     }

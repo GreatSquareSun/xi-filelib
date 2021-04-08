@@ -125,6 +125,6 @@ class AuthorizationPlugin extends BasePlugin
     public function dispatchDenyEvent(Identifiable $identifiable)
     {
         $event = new IdentifiableEvent($identifiable);
-        $this->eventDispatcher->dispatch(Events::BEFORE_DENY_ACCESS, $event);
+        $this->eventDispatcher->dispatch($event, Events::BEFORE_DENY_ACCESS);
     }
 }
