@@ -19,6 +19,14 @@
         }
     ],
 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/GreatSquareSun/xi-collections.git",
+            "no-api": true
+        }
+    ],
+
     "require": {
         "php": ">=7.1.0",
         "symfony/event-dispatcher": "~3.4|~4.0",
@@ -28,7 +36,7 @@
         "pekkis/temporary-file-manager": "~2.0",
         "pekkis/directory-calculator": "~2.0",
         "pekkis/mime-types": "~2.0",
-        "xi/collections": "0.3.*",
+        "xi/collections": "0.4.*",
         "zencoder/zencoder-php": "~2.1",
         "aws/aws-sdk-php": "~3.2"
     },
