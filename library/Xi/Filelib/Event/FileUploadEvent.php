@@ -9,7 +9,7 @@
 
 namespace Xi\Filelib\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Xi\Filelib\File\Upload\FileUpload;
 use Xi\Filelib\Folder\Folder;
 use Xi\Filelib\Profile\FileProfile;

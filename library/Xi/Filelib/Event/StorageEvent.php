@@ -9,7 +9,7 @@
 
 namespace Xi\Filelib\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Plugin event
