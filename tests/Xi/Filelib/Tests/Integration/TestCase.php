@@ -184,6 +184,7 @@ class TestCase extends \Xi\Filelib\Tests\TestCase
 
         $this->conn->exec("DELETE FROM xi_filelib_file");
         $this->conn->exec("DELETE FROM xi_filelib_resource");
+        $this->conn->exec("UPDATE xi_filelib_folder SET parent_id = NULL");
         $this->conn->exec("DELETE FROM xi_filelib_folder");
 
         /*
