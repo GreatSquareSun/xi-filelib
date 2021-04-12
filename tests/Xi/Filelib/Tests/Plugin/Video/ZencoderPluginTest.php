@@ -50,6 +50,18 @@ class ZencoderPluginTest extends \Xi\Filelib\Tests\TestCase
 
     public function setUp()
     {
+        if (!class_exists(S3Client::class)) {
+            return;
+        }
+
+        if (!getenv('S3_KEY')) {
+            $this->markTestSkipped('S3 not configured');
+        }
+
+        if (!getenv('ZENCODER_KEY')) {
+            $this->markTestSkipped('Zencoder service not configured');
+        }
+
         if (!class_exists('Services_Zencoder')) {
             $this->markTestSkipped('ZencoderService class could not be loaded');
         }
@@ -105,21 +117,6 @@ class ZencoderPluginTest extends \Xi\Filelib\Tests\TestCase
 
         $filelib = $this->getMockedFilelib(null, null, null, $this->storage, null, null, null, null, $pm);
         $this->plugin->attachTo($filelib);
-    }
-
-    public function tearDown()
-    {
-        if (!class_exists(S3Client::class)) {
-            return;
-        }
-
-        if (!getenv('S3_KEY')) {
-            $this->markTestSkipped('S3 not configured');
-        }
-
-        if (!getenv('ZENCODER_KEY')) {
-            $this->markTestSkipped('Zencoder service not configured');
-        }
     }
 
     /**
