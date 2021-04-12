@@ -97,8 +97,8 @@ class ProfileManagerTest extends \Xi\Filelib\Tests\TestCase
             ->expects($this->exactly(2))
             ->method('dispatch')
             ->with(
-                $this->equalTo(Events::PROFILE_AFTER_ADD),
-                $this->isInstanceOf('Xi\Filelib\Event\FileProfileEvent')
+                $this->isInstanceOf('Xi\Filelib\Event\FileProfileEvent'),
+                Events::PROFILE_AFTER_ADD,
             );
 
         $this->manager->addProfile($profile);

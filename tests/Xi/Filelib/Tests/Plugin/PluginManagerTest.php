@@ -49,8 +49,8 @@ class PluginManagerTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')->with(
+                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent'),
                 Events::PLUGIN_AFTER_ADD,
-                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent')
             );
 
         $this->manager->addPlugin($plugin, array('sucklee', 'ducklee'));
@@ -70,8 +70,8 @@ class PluginManagerTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')->with(
-                Events::PLUGIN_AFTER_ADD,
-                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent')
+                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent'),
+                Events::PLUGIN_AFTER_ADD
             );
 
         $this->manager->addPlugin($plugin);
@@ -98,8 +98,8 @@ class PluginManagerTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')->with(
-                Events::PLUGIN_AFTER_ADD,
-                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent')
+                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent'),
+                Events::PLUGIN_AFTER_ADD
             );
 
         $plugin = new RandomizeNamePlugin();

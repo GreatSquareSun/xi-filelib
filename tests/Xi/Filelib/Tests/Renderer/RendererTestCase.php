@@ -111,13 +111,13 @@ abstract class RendererTestCase extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->at(0))
             ->method('dispatch')
-            ->with(Events::RENDERER_BEFORE_RENDER, $this->isInstanceOf('Xi\Filelib\Event\FileEvent'))
+            ->with($this->isInstanceOf('Xi\Filelib\Event\FileEvent'), Events::RENDERER_BEFORE_RENDER)
             ->will($this->throwException(new AccessDeniedException('Game over man, game over')));
 
         $this->ed
             ->expects($this->at(1))
             ->method('dispatch')
-            ->with(Events::RENDERER_RENDER, $this->isInstanceOf('Xi\Filelib\Event\RenderEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\RenderEvent'), Events::RENDERER_RENDER);
 
         $ret = $this->renderer->render('xooxoo', 'xooxer');
 
@@ -165,12 +165,12 @@ abstract class RendererTestCase extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->at(0))
             ->method('dispatch')
-            ->with(Events::RENDERER_BEFORE_RENDER, $this->isInstanceOf('Xi\Filelib\Event\FileEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\FileEvent'), Events::RENDERER_BEFORE_RENDER);
 
         $this->ed
             ->expects($this->at(1))
             ->method('dispatch')
-            ->with(Events::RENDERER_RENDER, $this->isInstanceOf('Xi\Filelib\Event\RenderEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\RenderEvent'), Events::RENDERER_RENDER);
 
         $this->storage
             ->expects($this->once())

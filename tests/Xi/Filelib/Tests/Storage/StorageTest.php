@@ -107,7 +107,7 @@ class StorageTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')
-            ->with(Events::BEFORE_STORE, $this->isInstanceOf('Xi\Filelib\Event\StorageEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\StorageEvent'), Events::BEFORE_STORE);
 
         $this->adapter->expects($this->once())->method('store')
                       ->will($this->throwException($this->exception));
@@ -131,7 +131,7 @@ class StorageTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')
-            ->with(Events::BEFORE_STORE, $this->isInstanceOf('Xi\Filelib\Event\StorageEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\StorageEvent'), Events::BEFORE_STORE);
 
 
         $this->adapter->expects($this->once())->method('storeVersion')
@@ -233,7 +233,7 @@ class StorageTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')
-            ->with(Events::BEFORE_STORE, $this->isInstanceOf('Xi\Filelib\Event\StorageEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\StorageEvent'), Events::BEFORE_STORE);
 
         $this->assertEquals('lus', $this->storage->store($resource, $path));
     }
@@ -256,7 +256,7 @@ class StorageTest extends \Xi\Filelib\Tests\TestCase
         $this->ed
             ->expects($this->once())
             ->method('dispatch')
-            ->with(Events::BEFORE_STORE, $this->isInstanceOf('Xi\Filelib\Event\StorageEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\StorageEvent'), Events::BEFORE_STORE);
 
         $this->assertEquals('lus', $this->storage->storeVersion($resource, $version, $path));
     }

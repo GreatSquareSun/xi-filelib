@@ -146,13 +146,13 @@ class ResourceRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->assertSame($res, $resource);
 
         $this->ed->dispatch(
-            Events::RESOURCE_BEFORE_CREATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_BEFORE_CREATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::RESOURCE_AFTER_CREATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_AFTER_CREATE
         )->shouldHaveBeenCalled();
 
 
@@ -192,13 +192,13 @@ class ResourceRepositoryTest extends \Xi\Filelib\Tests\TestCase
         );
 
         $this->ed->dispatch(
-            Events::RESOURCE_BEFORE_CREATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_BEFORE_CREATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::RESOURCE_AFTER_CREATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_AFTER_CREATE
         )->shouldHaveBeenCalled();
     }
 
@@ -227,13 +227,13 @@ class ResourceRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->assertFalse($this->filelib->getStorage()->exists($res));
 
         $this->ed->dispatch(
-            Events::RESOURCE_BEFORE_DELETE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_BEFORE_DELETE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::RESOURCE_AFTER_DELETE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_AFTER_DELETE
         )->shouldHaveBeenCalled();
 
     }
@@ -260,13 +260,13 @@ class ResourceRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->op->update($res);
 
         $this->ed->dispatch(
-            Events::RESOURCE_BEFORE_UPDATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_BEFORE_UPDATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::RESOURCE_AFTER_UPDATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_AFTER_UPDATE
         )->shouldHaveBeenCalled();
     }
 

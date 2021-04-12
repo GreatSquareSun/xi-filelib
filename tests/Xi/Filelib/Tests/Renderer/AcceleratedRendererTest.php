@@ -48,7 +48,7 @@ class AcceleratedRendererTest extends RendererTestCase
         $this->ed
             ->expects($this->at(0))
             ->method('dispatch')
-            ->with(Events::RENDERER_BEFORE_RENDER, $this->isInstanceOf('Xi\Filelib\Event\FileEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\FileEvent'), Events::RENDERER_BEFORE_RENDER);
 
         $this->storage
             ->expects($this->once())
@@ -149,7 +149,7 @@ class AcceleratedRendererTest extends RendererTestCase
         $this->ed
             ->expects($this->at(0))
             ->method('dispatch')
-            ->with(Events::RENDERER_BEFORE_RENDER, $this->isInstanceOf('Xi\Filelib\Event\FileEvent'));
+            ->with($this->isInstanceOf('Xi\Filelib\Event\FileEvent'), Events::RENDERER_BEFORE_RENDER);
 
         $this->storage
             ->expects($this->once())

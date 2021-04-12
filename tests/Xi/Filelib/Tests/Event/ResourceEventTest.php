@@ -13,7 +13,7 @@ class ResourceEventTest extends \Xi\Filelib\Tests\TestCase
     public function classShouldExist()
     {
         $this->assertTrue(class_exists('Xi\Filelib\Event\ResourceEvent'));
-        $this->assertTrue(is_subclass_of('Xi\Filelib\Event\ResourceEvent', 'Symfony\Component\EventDispatcher\Event'));
+        $this->assertTrue(is_subclass_of('Xi\Filelib\Event\ResourceEvent', 'Symfony\Contracts\EventDispatcher\Event'));
         $this->assertTrue(is_subclass_of('Xi\Filelib\Event\ResourceEvent', 'Xi\Filelib\Event\IdentifiableEvent'));
     }
 

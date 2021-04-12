@@ -132,8 +132,8 @@ class FileLibraryTest extends TestCase
             ->expects($this->once())
             ->method('dispatch')
             ->with(
-                $this->equalTo(Events::PLUGIN_AFTER_ADD),
-                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent')
+                $this->isInstanceOf('Xi\Filelib\Event\PluginEvent'),
+                Events::PLUGIN_AFTER_ADD,
             );
 
         $ed

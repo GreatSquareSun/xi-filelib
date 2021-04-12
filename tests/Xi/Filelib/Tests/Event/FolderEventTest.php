@@ -12,7 +12,7 @@ class FolderEventTest extends \Xi\Filelib\Tests\TestCase
     public function classShouldExist()
     {
         $this->assertTrue(class_exists('Xi\Filelib\Event\FolderEvent'));
-        $this->assertTrue(is_subclass_of('Xi\Filelib\Event\FolderEvent', 'Symfony\Component\EventDispatcher\Event'));
+        $this->assertTrue(is_subclass_of('Xi\Filelib\Event\FolderEvent', 'Symfony\Contracts\EventDispatcher\Event'));
         $this->assertTrue(is_subclass_of('Xi\Filelib\Event\FolderEvent', 'Xi\Filelib\Event\IdentifiableEvent'));
     }
 

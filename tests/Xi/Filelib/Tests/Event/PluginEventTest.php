@@ -14,7 +14,7 @@ class PluginEventTest extends \Xi\Filelib\Tests\TestCase
     {
         $this->assertTrue(class_exists('Xi\Filelib\Event\PluginEvent'));
         $this->assertContains(
-            'Symfony\Component\EventDispatcher\Event',
+            'Symfony\Contracts\EventDispatcher\Event',
             class_parents('Xi\Filelib\Event\PluginEvent')
         );
     }

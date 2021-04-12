@@ -113,28 +113,28 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->assertEquals($folder->getId(), $file->getFolderId());
 
         $this->ed->dispatch(
-            Events::RESOURCE_BEFORE_CREATE,
-            Argument::type('Xi\Filelib\Event\ResourceEvent')
+            Argument::type('Xi\Filelib\Event\ResourceEvent'),
+            Events::RESOURCE_BEFORE_CREATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FOLDER_BEFORE_WRITE_TO,
-            Argument::type('Xi\Filelib\Event\FolderEvent')
+            Argument::type('Xi\Filelib\Event\FolderEvent'),
+            Events::FOLDER_BEFORE_WRITE_TO
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_UPLOAD,
-            Argument::type('Xi\Filelib\Event\FileUploadEvent')
+            Argument::type('Xi\Filelib\Event\FileUploadEvent'),
+            Events::FILE_UPLOAD
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_BEFORE_CREATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_BEFORE_CREATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_CREATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_CREATE
         )->shouldHaveBeenCalled();
 
         $this->assertTrue($this->filelib->getStorage()->exists($file->getResource()));
@@ -169,13 +169,13 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->assertSame($file, $file2);
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_AFTERUPLOAD,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_AFTERUPLOAD
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_UPDATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_UPDATE
         )->shouldHaveBeenCalled();
 
         $this->assertEquals(File::STATUS_COMPLETED, $file->getStatus());
@@ -304,13 +304,13 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->filelib->getFileRepository()->update($file);
 
         $this->ed->dispatch(
-            Events::FILE_BEFORE_UPDATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_BEFORE_UPDATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_UPDATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_UPDATE
         )->shouldHaveBeenCalled();
 
     }
@@ -335,18 +335,18 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->assertEquals($file2->getFolderId(), $folder->getId());
 
         $this->ed->dispatch(
-            Events::FILE_BEFORE_COPY,
-            Argument::type('Xi\Filelib\Event\FileCopyEvent')
+            Argument::type('Xi\Filelib\Event\FileCopyEvent'),
+            Events::FILE_BEFORE_COPY
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_CREATE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_CREATE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_COPY,
-            Argument::type('Xi\Filelib\Event\FileCopyEvent')
+            Argument::type('Xi\Filelib\Event\FileCopyEvent'),
+            Events::FILE_AFTER_COPY
         )->shouldHaveBeenCalled();
     }
 
@@ -407,13 +407,13 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->filelib->getFileRepository()->delete($file);
 
         $this->ed->dispatch(
-            Events::FILE_BEFORE_DELETE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_BEFORE_DELETE
         )->shouldHaveBeenCalled();
 
         $this->ed->dispatch(
-            Events::FILE_AFTER_DELETE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_DELETE
         )->shouldHaveBeenCalled();
 
         $this->assertEquals(File::STATUS_DELETED, $file->getStatus());
@@ -432,8 +432,8 @@ class FileRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $file = $this->filelib->getFileRepository()->upload($upload, null, 'tussi');
         $this->filelib->getFileRepository()->delete($file);
         $this->ed->dispatch(
-            Events::FILE_AFTER_DELETE,
-            Argument::type('Xi\Filelib\Event\FileEvent')
+            Argument::type('Xi\Filelib\Event\FileEvent'),
+            Events::FILE_AFTER_DELETE
         )->shouldHaveBeenCalled();
         $this->assertFalse($this->filelib->getStorage()->exists($file->getResource()));
     }

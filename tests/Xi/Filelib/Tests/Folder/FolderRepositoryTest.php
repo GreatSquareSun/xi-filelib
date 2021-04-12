@@ -199,18 +199,18 @@ class FolderRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->op->create($folder);
 
         $this->ed->dispatch(
-            Events::FOLDER_BEFORE_WRITE_TO,
-            Argument::type('Xi\Filelib\Event\FolderEvent')
+            Argument::type('Xi\Filelib\Event\FolderEvent'),
+            Events::FOLDER_BEFORE_WRITE_TO
         )->shouldHaveBeenCalledTimes(1);
 
         $this->ed->dispatch(
-            Events::FOLDER_BEFORE_CREATE,
-            Argument::type('Xi\Filelib\Event\FolderEvent')
+            Argument::type('Xi\Filelib\Event\FolderEvent'),
+            Events::FOLDER_BEFORE_CREATE
         )->shouldHaveBeenCalledTimes(2);
 
         $this->ed->dispatch(
-            Events::FOLDER_AFTER_CREATE,
-            Argument::type('Xi\Filelib\Event\FolderEvent')
+            Argument::type('Xi\Filelib\Event\FolderEvent'),
+            Events::FOLDER_AFTER_CREATE
         )->shouldHaveBeenCalledTimes(2);
     }
 
@@ -289,8 +289,8 @@ class FolderRepositoryTest extends \Xi\Filelib\Tests\TestCase
         $this->op->update($folder);
 
         $this->ed->dispatch(
-            Events::FOLDER_AFTER_UPDATE,
-            Argument::type('Xi\Filelib\Event\FolderEvent')
+            Argument::type('Xi\Filelib\Event\FolderEvent'),
+            Events::FOLDER_AFTER_UPDATE
         )->shouldHaveBeenCalledTimes(1);
     }
 

@@ -103,8 +103,8 @@ class AuthorizationPluginTest extends TestCase
             ->expects($this->once())
             ->method('dispatch')
             ->with(
+                $this->isInstanceOf('Xi\Filelib\Event\IdentifiableEvent'),
                 Events::BEFORE_DENY_ACCESS,
-                $this->isInstanceOf('Xi\Filelib\Event\IdentifiableEvent')
             );
 
         $plugin = new AuthorizationPlugin($this->adapter);

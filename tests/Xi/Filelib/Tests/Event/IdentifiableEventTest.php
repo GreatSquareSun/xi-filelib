@@ -13,7 +13,7 @@ class IdentifiableEventTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue(class_exists('Xi\Filelib\Event\IdentifiableEvent'));
         $this->assertTrue(
-            is_subclass_of('Xi\Filelib\Event\IdentifiableEvent', 'Symfony\Component\EventDispatcher\Event')
+            is_subclass_of('Xi\Filelib\Event\IdentifiableEvent', 'Symfony\Contracts\EventDispatcher\Event')
         );
     }
 
