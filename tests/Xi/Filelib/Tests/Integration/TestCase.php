@@ -11,6 +11,7 @@ use Xi\Filelib\FileLibrary;
 use Xi\Filelib\Storage\Adapter\FilesystemStorageAdapter;
 use Xi\Filelib\Plugin\RandomizeNamePlugin;
 use Xi\Filelib\Backend\Cache\Adapter\MemcachedCacheAdapter;
+use Xi\Filelib\Backend\Cache\Adapter\RedisCacheAdapter;
 use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -28,6 +29,7 @@ use RecursiveIteratorIterator;
 use Imagick;
 use MongoDB;
 use Memcached;
+use Redis;
 
 class TestCase extends \Xi\Filelib\Tests\TestCase
 {
@@ -56,6 +58,11 @@ class TestCase extends \Xi\Filelib\Tests\TestCase
      * @var Memcached
      */
     protected $memcached;
+
+    /**
+     * @var Redis
+     */
+    protected $redis;
 
     /**
      * @var Connection
@@ -101,11 +108,18 @@ class TestCase extends \Xi\Filelib\Tests\TestCase
             $ed
         );
 
-        $memcached = new Memcached();
-        $memcached->addServer('localhost', 11211);
+        if (class_exists('Memcached')) {
+            $memcached = new Memcached();
+            $memcached->addServer('localhost', 11211);
 
-        $this->memcached = $memcached;
-        $this->memcached->flush();
+            $this->memcached = $memcached;
+            $this->memcached->flush();
+        }
+
+        if (class_exists('Redis')) {
+            $this->redis = new Redis();
+            $this->redis->connect('redis-node', 6379);
+        }
 
         $filelib->addPlugin(new RandomizeNamePlugin());
 
@@ -228,9 +242,21 @@ class TestCase extends \Xi\Filelib\Tests\TestCase
     protected function setupCache($enabled)
     {
         if ($enabled) {
-            $this->filelib->createCacheFromAdapter(
-                new MemcachedCacheAdapter($this->memcached)
-            );
+            if ($this->memcached) {
+                $this->filelib->createCacheFromAdapter(
+                    new MemcachedCacheAdapter($this->memcached)
+                );
+
+                return;
+            }
+            if ($this->redis) {
+                $this->filelib->createCacheFromAdapter(
+                    new RedisCacheAdapter($this->redis)
+                );
+
+                return;
+            }
+            throw new \LogicException("No CacheAdapter found");
         }
     }
 
