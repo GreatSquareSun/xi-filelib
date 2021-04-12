@@ -82,6 +82,7 @@ class VersionProviderTest extends TestCase
                     }
                 )
             )
+            ->setMethods(['createProvidedVersions'])
             ->getMockForAbstractClass();
 
 

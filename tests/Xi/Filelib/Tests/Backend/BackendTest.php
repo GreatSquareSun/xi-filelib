@@ -38,7 +38,7 @@ class BackendTest extends TestCase
 
     public function setUp()
     {
-        $this->platform = $this->getMock('Xi\Filelib\Backend\Adapter\BackendAdapter');
+        $this->platform = $this->getMockBuilder('Xi\Filelib\Backend\Adapter\BackendAdapter')->getMock();
 
         $this->im = $this
             ->getMockBuilder('Xi\Filelib\Backend\IdentityMap\IdentityMap')
@@ -46,7 +46,8 @@ class BackendTest extends TestCase
             ->getMock();
 
         $this->ed = $this
-            ->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+            ->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')
+            ->getMock();
 
         $this->backend = new Backend($this->ed, $this->platform);
     }
@@ -120,7 +121,7 @@ class BackendTest extends TestCase
 
         $backend = $this->getMockBuilder('Xi\Filelib\Backend\Backend')
             ->setConstructorArgs(array($this->ed, $this->platform, $this->im))
-            ->setMethods(array('findById'))
+            ->setMethods(array('findById', 'updateResource'))
             ->getMock();
 
         $backend

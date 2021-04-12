@@ -32,7 +32,7 @@ class AutomaticPublisherPluginTest extends \Xi\Filelib\Tests\TestCase
     public function setUp()
     {
         $this->publisher = $this->getMockedPublisher();
-        $this->adapter = $this->getMock('Xi\Filelib\Authorization\AuthorizationAdapter');
+        $this->adapter = $this->getMockBuilder('Xi\Filelib\Authorization\AuthorizationAdapter')->getMock();
 
         $this->plugin = new AutomaticPublisherPlugin($this->publisher, $this->adapter);
         $this->file = File::create(

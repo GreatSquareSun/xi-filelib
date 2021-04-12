@@ -24,7 +24,7 @@ class AuthorizationPluginTest extends TestCase
 
     public function setUp()
     {
-        $this->adapter = $this->getMock('Xi\Filelib\Authorization\AuthorizationAdapter');
+        $this->adapter = $this->getMockBuilder('Xi\Filelib\Authorization\AuthorizationAdapter')->getMock();
         $this->ed = $this->getMockedEventDispatcher();
         $this->filelib = $this->getMockedFilelib(null, null, null, null, $this->ed);
     }

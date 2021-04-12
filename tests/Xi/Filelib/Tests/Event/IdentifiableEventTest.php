@@ -22,7 +22,7 @@ class IdentifiableEventTest extends \PHPUnit_Framework_TestCase
      */
     public function eventInitializesCorrectly()
     {
-        $identifiable = $this->getMock('Xi\Filelib\Identifiable');
+        $identifiable = $this->getMockBuilder('Xi\Filelib\Identifiable')->getMock();
         $event = new IdentifiableEvent($identifiable);
 
         $identifiable2 = $event->getIdentifiable();

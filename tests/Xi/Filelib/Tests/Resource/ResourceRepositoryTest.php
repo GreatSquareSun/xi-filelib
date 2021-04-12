@@ -168,8 +168,8 @@ class ResourceRepositoryTest extends \Xi\Filelib\Tests\TestCase
             'id' => 'xoo-xoo-xoo'
         ]);
 
-        $storage = $this->getMock(StorageAdapter::class);
-        $backend = $this->getMock(BackendAdapter::class);
+        $storage = $this->getMockBuilder(StorageAdapter::class)->getMock();
+        $backend = $this->getMockBuilder(BackendAdapter::class)->getMock();
 
         $storage->expects($this->any())->method('store')->withAnyParameters()->willThrowException(new FileIOException('Uh oh'));
         $backend->expects($this->once())->method('createResource');

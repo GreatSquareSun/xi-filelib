@@ -28,7 +28,7 @@ class IdentityMapTest extends TestCase
 
     public function setUp()
     {
-        $this->ed = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->ed = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->im = new IdentityMap($this->ed);
     }
 

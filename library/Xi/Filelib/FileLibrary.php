@@ -206,7 +206,7 @@ class FileLibrary
     /**
      * Returns temporary file manager
      *
-     * @return string
+     * @return TemporaryFileManager
      */
     public function getTemporaryFileManager()
     {
