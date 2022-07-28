@@ -24,13 +24,23 @@
             "type": "vcs",
             "url":  "https://github.com/GreatSquareSun/xi-collections.git",
             "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/GreatSquareSun/queue.git",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/GreatSquareSun/directory-calculator.git",
+            "no-api": true
         }
     ],
 
     "require": {
         "php": ">=7.1.0",
         "symfony/event-dispatcher": "~3.4|~4.0",
-        "ramsey/uuid": "~3.8",
+        "ramsey/uuid": "^4.0",
         "cocur/slugify": "~3.1",
         "pekkis/queue": "~4.0",
         "pekkis/temporary-file-manager": "~2.0",
