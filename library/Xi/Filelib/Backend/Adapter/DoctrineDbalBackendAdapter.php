@@ -59,7 +59,7 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->execute(
+        $result = $stmt->execute(
             array(
                 'folderId' => $file->getFolderId(),
                 'profile' => $file->getProfile(),
@@ -73,7 +73,7 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
             )
         );
 
-        return (bool) $stmt->rowCount();
+        return (bool) $result->rowCount();
     }
 
     /**
@@ -82,9 +82,9 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
     public function deleteFile(File $file)
     {
         $stmt = $this->conn->prepare("DELETE FROM xi_filelib_file WHERE id = ?");
-        $stmt->execute(array($file->getId()));
+        $result = $stmt->execute(array($file->getId()));
 
-        return (bool) $stmt->rowCount();
+        return (bool) $result->rowCount();
     }
 
     /**
@@ -127,7 +127,7 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->execute(
+        $result = $stmt->execute(
             array(
                 'parentId' => $folder->getParentId(),
                 'name' => $folder->getName(),
@@ -138,7 +138,7 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
             )
         );
 
-        return (bool) $stmt->rowCount();
+        return (bool) $result->rowCount();
     }
 
     /**
@@ -160,8 +160,8 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
         $stmt->bindValue('data', json_encode($resource->getData()->toArray()), PDO::PARAM_STR);
         $stmt->bindValue('id', $resource->getId(), PDO::PARAM_INT);
 
-        $stmt->execute();
-        return (bool) $stmt->rowCount();
+        $result = $stmt->execute();
+        return (bool) $result->rowCount();
     }
 
     /**
@@ -170,9 +170,9 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
     public function deleteFolder(Folder $folder)
     {
         $stmt = $this->conn->prepare("DELETE FROM xi_filelib_folder WHERE id = ?");
-        $stmt->execute(array($folder->getId()));
+        $result = $stmt->execute(array($folder->getId()));
 
-        return (bool) $stmt->rowCount();
+        return (bool) $result->rowCount();
     }
 
     /**
@@ -181,9 +181,9 @@ class DoctrineDbalBackendAdapter extends BaseDoctrineBackendAdapter implements B
     public function deleteResource(Resource $resource)
     {
         $stmt = $this->conn->prepare("DELETE FROM xi_filelib_resource WHERE id = ?");
-        $stmt->execute(array($resource->getId()));
+        $result = $stmt->execute(array($resource->getId()));
 
-        return (bool) $stmt->rowCount();
+        return (bool) $result->rowCount();
     }
 
     /**
